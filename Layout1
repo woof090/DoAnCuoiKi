@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>@ViewBag.Title</title>
+
+    <script src="~/Scripts/MyScripts/Layout_Script.js"></script>
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #1e293b;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            width: 100%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid #e9edf5;
+            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+        }
+
+        /* ===== CONTAINER ===== */
+        .header .container {
+            width: 100%;
+            max-width: 1500px;
+            min-height: 88px;
+            margin: 0 auto;
+            padding: 12px 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        /* ===== LOGO ===== */
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            text-decoration: none;
+        }
+
+        .logo img {
+            display: block;
+            width: 150px;
+            max-height: 70px;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover img {
+            transform: scale(1.04);
+        }
+
+        /* ===== MENU ===== */
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 4px;
+            min-width: 0;
+            background: transparent;
+        }
+
+        .menu .mn-fm {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 10px;
+            border: none;
+            border-radius: 8px;
+            color: #475569;
+            background: transparent;
+            text-decoration: none;
+            text-align: center;
+            white-space: nowrap;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.1px;
+            transition:
+                color 0.25s ease,
+                background 0.25s ease,
+                transform 0.25s ease;
+        }
+
+        /* ===== MENU HOVER ===== */
+        .menu .mn-fm:hover {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+
+        /* ===== MENU ACTIVE ===== */
+        .menu .mn-fm.active {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+
+        /* ===== MENU UNDERLINE ===== */
+        .menu .mn-fm::after {
+            content: "";
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 5px;
+            height: 2px;
+            border-radius: 10px;
+            background: #2563eb;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.25s ease;
+        }
+
+        .menu .mn-fm:hover::after,
+        .menu .mn-fm.active::after {
+            transform: scaleX(1);
+        }
+
+        /* ===== HEADER ACTIONS ===== */
+        .header-actions {
+            flex-shrink: 0;
+        }
+
+        /* ===== LOGIN BUTTON ===== */
+        .btn-login {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 22px;
+            border: 1px solid #2563eb;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: #fff;
+            text-decoration: none;
+            white-space: nowrap;
+            font-size: 14px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .btn-login:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            box-shadow: 0 7px 18px rgba(37, 99, 235, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .btn-login:active {
+            transform: translateY(0);
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            width: 100%;
+            min-height: 60vh;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            width: 100%;
+            background: #0f172a;
+            color: #fff;
+            padding: 30px 0;
+        }
+
+        .footer .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        /* ===== RESPONSIVE: TABLET ===== */
+        @media (max-width: 1200px) {
+            .header .container {
+                gap: 14px;
+                padding: 12px 18px;
+            }
+
+            .logo img {
+                width: 100px;
+            }
+
+            .menu {
+                gap: 2px;
+            }
+
+            .menu .mn-fm {
+                padding: 10px 6px;
+                font-size: 13px;
+            }
+
+            .btn-login {
+                padding: 10px 14px;
+                font-size: 13px;
+            }
+        }
+
+        /* ===== RESPONSIVE: MOBILE ===== */
+        @media (max-width: 768px) {
+            .header {
+                position: relative;
+            }
+
+            .header .container {
+                min-height: auto;
+                flex-wrap: wrap;
+                padding: 14px 16px;
+                gap: 14px;
+            }
+
+            .logo img {
+                width: 105px;
+            }
+
+            .header-actions {
+                margin-left: auto;
+            }
+
+            .menu {
+                order: 3;
+                flex: 0 0 100%;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding: 4px 0 8px;
+                scrollbar-width: thin;
+                scrollbar-color: #cbd5e1 transparent;
+            }
+
+            .menu .mn-fm {
+                flex-shrink: 0;
+                padding: 10px 12px;
+                font-size: 15px;
+            }
+
+            .menu .mn-fm::after {
+                bottom: 3px;
+            }
+
+            .btn-login {
+                padding: 10px 15px;
+                border-radius: 8px;
+            }
+
+            .footer .container {
+                padding: 0 16px;
+            }
+        }
+
+        /* ===== REDUCE ANIMATION ===== */
+        @media (prefers-reduced-motion: reduce) {
+            .header *,
+            .header *::before,
+            .header *::after {
+                transition: none !important;
+            }
+
+            .logo img {
+                transition: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ===== HEADER + MENU ===== -->
+    <header class="header">
+        <div class="container">
+
+            <!-- LOGO -->
+            <a class="logo">
+                <img src="~/Images/Logo_02.png" alt="Logo" />
+            </a>
+
+            <!-- MENU -->
+            <nav class="menu">
+                <a class="mn-fm active">Trang chủ</a>
+                <a class="mn-fm">Giới thiệu</a>
+                <a class="mn-fm">Kỹ năng</a>
+                <a class="mn-fm">Dự án</a>
+                <a class="mn-fm">Kinh nghiệm</a>
+                <a class="mn-fm">Học vấn</a>
+                <a class="mn-fm">Chứng chỉ</a>
+                <a class="mn-fm">Blog</a>
+                <a class="mn-fm">Liên hệ</a>
+            </nav>
+
+            <!-- LOGIN -->
+            <div class="header-actions">
+                <a href="/Account/Login" class="btn-login">
+                    Đăng nhập
+                </a>
+            </div>
+
+        </div>
+    </header>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main">
+        @RenderBody()
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"></div>
+            <div class="footer-social"></div>
+            <div class="footer-links"></div>
+            <div class="footer-copyright"></div>
+        </div>
+    </footer>
+</body>
+</html>
