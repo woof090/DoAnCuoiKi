@@ -1,7 +1,7 @@
 CREATE DATABASE Portfolio;
 GO
 
-USE PortfolioDB;
+USE Portfolio;
 GO
 
 
