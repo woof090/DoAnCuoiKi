@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <script src="~/Scripts/MyScripts/Layout_Script.js"></script>
+    <link href="~/Content/MyStyles/Layout_StyleSheet.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- HEADER + MENU -->
+    <header class="header">
+        <div class="container">
+            <a href="#" class="logo">
+                <img src="~/Images/Logo_02.png" alt="Logo" />
+            </a>
+            <nav class="menu">
+                <a href="#" class="mn-fm">Trang chủ</a>
+                <a href="#" class="mn-fm">Giới thiệu</a>
+                <a href="#" class="mn-fm">Kỹ năng</a>
+                <a href="#" class="mn-fm">Dự án</a>
+                <a href="#" class="mn-fm">Kinh nghiệm</a>
+                <a href="#" class="mn-fm">Học vấn</a>
+                <a href="#" class="mn-fm">Chứng chỉ</a>
+                <a href="#" class="mn-fm">Blog</a>
+                <a href="#" class="mn-fm">Liên hệ</a>
+            </nav>
+            <div class="header-actions">
+                <a href="/Account/Login" class="btn-login">
+                    Đăng nhập
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main">
+        @RenderBody()
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo"></div>
+            <div class="footer-social"></div>
+            <div class="footer-links"></div>
+            <div class="footer-copyright"></div>
+        </div>
+    </footer>
+</body>
+</html>
+
