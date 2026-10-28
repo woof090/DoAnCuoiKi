@@ -1,14 +1,207 @@
-
+/* ===== HEADER ===== */
+.header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e9edf5;
+    box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05);
+}
+    /* ===== CONTAINER ===== */
+    .header .container {
+        max-width: 1500px;
+        min-height: 88px;
+        margin: 0 auto;
+        padding: 12px 28px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+    }
+/* ===== LOGO ===== */
+.logo {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+    .logo img {
+        display: block;
+        width: 150px;
+        max-height: 70px;
+        object-fit: contain;
+        transition: transform 0.3s ease;
+    }
+    .logo:hover img {
+        transform: scale(1.04);
+    }
+/* ===== MENU ===== */
+.menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    gap: 4px;
+    min-width: 0;
+    background: transparent;
+}
+    /* Menu item */
+    .menu .mn-fm {
+        position: relative;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 10px;
+        border: none;
+        border-radius: 8px;
+        color: #475569;
+        background: transparent;
+        text-decoration: none;
+        text-align: center;
+        white-space: nowrap;
+        font-size: 20px;
+        font-weight: 600;
+        letter-spacing: 0.1px;
+        transition: color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+    }
+        /* Hover */
+        .menu .mn-fm:hover {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+        /* Trang đang được chọn */
+        .menu .mn-fm.active {
+            color: #2563eb;
+            background: #eff6ff;
+        }
+        /* Thanh màu bên dưới menu */
+        .menu .mn-fm::after {
+            content: "";
+            position: absolute;
+            left: 12px;
+            right: 12px;
+            bottom: 5px;
+            height: 2px;
+            border-radius: 10px;
+            background: #2563eb;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.25s ease;
+        }
+        .menu .mn-fm:hover::after,
+        .menu .mn-fm.active::after {
+            transform: scaleX(1);
+        }
+/* ===== HEADER ACTIONS ===== */
+.header-actions {
+    flex-shrink: 0;
+}
+/* ===== LOGIN BUTTON ===== */
+.btn-login {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 22px;
+    border: 1px solid #2563eb;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff !important;
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+    .btn-login:hover {
+        background: linear-gradient(135deg, #1d4ed8, #1e40af);
+        box-shadow: 0 7px 18px rgba(37, 99, 235, 0.3);
+        transform: translateY(-2px);
+    }
+    .btn-login:active {
+        transform: translateY(0);
+    }
+/* ===== RESPONSIVE: TABLET ===== */
+@media (max-width: 1200px) {
+    .header .container {
+        gap: 14px;
+        padding: 12px 18px;
+    }
+    .logo img {
+        width: 100px;
+    }
+    .menu {
+        gap: 2px;
+    }
+        .menu .mn-fm {
+            padding: 10px 6px;
+            font-size: 12px;
+        }
+    .btn-login {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+/* ===== RESPONSIVE: MOBILE ===== */
+@media (max-width: 768px) {
+    .header {
+        position: relative;
+    }
+        .header .container {
+            min-height: auto;
+            flex-wrap: wrap;
+            padding: 14px 16px;
+            gap: 14px;
+        }
+    .logo img {
+        width: 105px;
+    }
+    .header-actions {
+        margin-left: auto;
+    }
+    .menu {
+        order: 3;
+        flex: 0 0 100%;
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 4px 0 8px;
+        scrollbar-width: thin;
+        scrollbar-color: #cbd5e1 transparent;
+    }
+        .menu .mn-fm {
+            flex-shrink: 0;
+            padding: 10px 12px;
+            font-size: 15px;
+        }
+            .menu .mn-fm::after {
+                bottom: 3px;
+            }
+    .btn-login {
+        padding: 10px 15px;
+        border-radius: 8px;
+    }
+}
+/* ===== REDUCE ANIMATION ===== */
+@media (prefers-reduced-motion: reduce) {
+    .header *,
+    .header *::before,
+    .header *::after {
+        transition: none !important;
+    }
+}
 * {
   box-sizing: border-box;
 }
-
 body {
   font-family: Verdana, sans-serif;
   margin: 0;
   background: #f5f5f5;
 }
-
 .slideshow-container {
   max-width: 1000px;
   position: relative;
@@ -16,19 +209,16 @@ body {
   overflow: hidden;
   background: #222;
 }
-
 .mySlides {
   display: none;
   position: relative;
 }
-
 .mySlides img {
   width: 100%;
   height: auto;
   display: block;
   vertical-align: middle;
 }
-
 .prev,
 .next {
   cursor: pointer;
@@ -44,22 +234,18 @@ body {
   background: rgba(0, 0, 0, 0.3);
   transition: background 0.3s;
 }
-
 .prev {
   left: 0;
   border-radius: 0 4px 4px 0;
 }
-
 .next {
   right: 0;
   border-radius: 4px 0 0 4px;
 }
-
 .prev:hover,
 .next:hover {
   background: rgba(0, 0, 0, 0.8);
 }
-
 .text {
   color: white;
   font-size: 15px;
@@ -70,7 +256,6 @@ body {
   text-align: center;
   background: rgba(0, 0, 0, 0.35);
 }
-
 .numbertext {
   color: white;
   font-size: 12px;
@@ -80,12 +265,10 @@ body {
   z-index: 1;
   background: rgba(0, 0, 0, 0.3);
 }
-
 .dots {
   text-align: center;
   padding: 16px;
 }
-
 .dot {
   cursor: pointer;
   height: 13px;
@@ -96,16 +279,13 @@ body {
   display: inline-block;
   transition: background-color 0.3s;
 }
-
 .dot.active,
 .dot:hover {
   background: #555;
 }
-
 .fade {
   animation: fade 0.8s ease;
 }
-
 @keyframes fade {
   from {
     opacity: 0.4;
@@ -114,18 +294,15 @@ body {
     opacity: 1;
   }
 }
-
 @media (max-width: 600px) {
   .slideshow-container {
     margin-top: 10px;
   }
-
   .prev,
   .next {
     padding: 10px;
     font-size: 16px;
   }
-
   .text {
     font-size: 12px;
   }
