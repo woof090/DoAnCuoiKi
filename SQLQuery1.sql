@@ -47,6 +47,8 @@ CREATE TABLE Skills
     SkillType NVARCHAR(50) NOT NULL,
     Description NVARCHAR(500),
     Icon VARCHAR(500)
+    SkillLevel NVARCHAR(50),
+    DisplayOrder INT DEFAULT 0
 );
 GO
 
@@ -75,12 +77,16 @@ CREATE TABLE Projects
     Image VARCHAR(500),
     ProjectURL VARCHAR(500),
     CreatedDate DATETIME DEFAULT GETDATE(),
+    UpdatedDate DATETIME,
+    Status BIT DEFAULT 1,
+    DisplayOrder INT DEFAULT 0
 
     CategoryID INT NOT NULL,
 
     CONSTRAINT FK_Projects_Categories
         FOREIGN KEY (CategoryID)
         REFERENCES Categories(CategoryID)
+   
 );
 GO
 
@@ -209,6 +215,9 @@ CREATE TABLE ContactMessages
     IsRead BIT DEFAULT 0
 );
 GO
+     ALTER TABLE Projects
+    ADD CONSTRAINT CK_Projects_Title
+    CHECK (LEN(Title) > 0);
 
 
 INSERT INTO Admins (Username, PasswordHash, Email)
