@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "LienHe";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<script src="~/Scripts/MyScripts/LayoutJavaScript.js"></script>
+<link href="~/Content/MyStyleSheet/StyleSheetLienHe.css" rel="stylesheet" />
+<div class="contact-page">
+    <div class="contact-header">
+        <h2>LIÊN HỆ</h2>
+        <p>
+            Hãy liên hệ với tôi nếu bạn có bất kỳ câu hỏi,
+            ý tưởng hoặc cơ hội hợp tác nào!
+        </p>
+    </div>
+    <div class="contact-container">
+        <!-- Thông tin liên hệ -->
+        <div class="contact-info">
+            <h3>Thông tin liên hệ</h3>
+            <p class="info-desc">
+                Bạn có thể kết nối với tôi thông qua
+                những thông tin dưới đây.
+            </p>
+            <div class="info-item">
+                <div class="info-icon">✉</div>
+                <div>
+                    <h4>Email</h4>
+                    <p>yourname@gmail.com</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">☎</div>
+                <div>
+                    <h4>Điện thoại</h4>
+                    <p>0123 456 789</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">⌖</div>
+                <div>
+                    <h4>Địa chỉ</h4>
+                    <p>TP. Hồ Chí Minh, Việt Nam</p>
+                </div>
+            </div>
+            <div class="info-item">
+                <div class="info-icon">🌐</div>
+                <div>
+                    <h4>Website</h4>
+                    <p>www.myportfolio.com</p>
+                </div>
+            </div>
+        </div>
+        <!-- Form liên hệ -->
+        <div class="contact-form">
+            <h3>Gửi tin nhắn cho tôi</h3>
+            <p class="info-desc">
+                Điền thông tin bên dưới, tôi sẽ phản hồi
+                bạn trong thời gian sớm nhất.
+            </p>
+            <form id="contactForm">
+                <label>Họ và tên</label>
+                <input type="text"
+                       placeholder="Nhập họ và tên..."
+                       required>
+                <label>Email</label>
+                <input type="email"
+                       placeholder="Nhập địa chỉ email..."
+                       required>
+                <label>Chủ đề</label>
+                <input type="text"
+                       placeholder="Nhập chủ đề..."
+                       required>
+                <label>Nội dung tin nhắn</label>
+                <textarea rows="5"
+                          placeholder="Nhập nội dung tin nhắn..."
+                          required></textarea>
+                <button type="submit">
+                    Gửi tin nhắn ➜
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
