@@ -46,7 +46,7 @@ CREATE TABLE Skills
     SkillName NVARCHAR(100) NOT NULL,
     SkillType NVARCHAR(50) NOT NULL,
     Description NVARCHAR(500),
-    Icon VARCHAR(500)
+    Icon VARCHAR(500),
     SkillLevel NVARCHAR(50),
     DisplayOrder INT DEFAULT 0
 );
@@ -79,7 +79,7 @@ CREATE TABLE Projects
     CreatedDate DATETIME DEFAULT GETDATE(),
     UpdatedDate DATETIME,
     Status BIT DEFAULT 1,
-    DisplayOrder INT DEFAULT 0
+    DisplayOrder INT DEFAULT 0,
 
     CategoryID INT NOT NULL,
 
