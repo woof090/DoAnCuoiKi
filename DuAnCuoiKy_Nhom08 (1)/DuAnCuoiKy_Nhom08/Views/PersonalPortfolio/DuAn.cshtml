@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "DuAn";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+
+<section class="page-heading">
+    <span class="eyebrow">MY WORK</span>
+    <h1>Dự án đã thực hiện</h1>
+    <p>Một số dự án cá nhân và dự án học tập.</p>
+</section>
+
+<section class="portfolio-stats" style="display: flex; justify-content: space-around; padding: 20px 0; background: #f9f9f9; margin-bottom: 30px; border-radius: 8px;">
+    <div class="stat-item" style="text-align: center;">
+        <h2 style="margin: 0; color: #007bff;">12+</h2>
+        <p style="margin: 5px 0 0; color: #555;">Dự án hoàn thành</p>
+    </div>
+    <div class="stat-item" style="text-align: center;">
+        <h2 style="margin: 0; color: #007bff;">5+</h2>
+        <p style="margin: 5px 0 0; color: #555;">Chứng chỉ công nghệ</p>
+    </div>
+    <div class="stat-item" style="text-align: center;">
+        <h2 style="margin: 0; color: #007bff;">02</h2>
+        <p style="margin: 5px 0 0; color: #555;">Năm kinh nghiệm</p>
+    </div>
+</section>
+
+<div class="filter-bar">
+    <input type="search" id="txtSearch" placeholder="Tìm tên dự án..." />
+
+    <select id="ddlCategory">
+        <option value="">Tất cả danh mục</option>
+        <option value="Website">Website</option>
+        <option value="Ứng dụng">Ứng dụng</option>
+    </select>
+
+    <select id="ddlTag">
+        <option value="">Tất cả tag</option>
+        <option value="ASP.NET MVC">ASP.NET MVC</option>
+        <option value="HTML/CSS">HTML/CSS</option>
+        <option value="SQL Server">SQL Server</option>
+    </select>
+</div>
+
+<section class="project-grid">
+    <!-- Thêm data-category và data-tags để JS có thể đọc dữ liệu bộ lọc -->
+    <article class="project-card" data-category="Website" data-tags="ASP.NET MVC, SQL Server">
+        <div class="project-thumb">PROJECT 01</div>
+        <div class="project-body">
+            <span class="tag">Website</span>
+            <!-- Thêm class project-title vào thẻ h3 -->
+            <h3 class="project-title">Website Bán Hàng ASP.NET</h3>
+            <p>Mô tả ngắn về mục tiêu, chức năng và công nghệ sử dụng trong dự án.</p>
+            <div class="tag-list">
+                <span>ASP.NET MVC</span>
+                <span>SQL Server</span>
+            </div>
+            <div class="project-links" style="margin-top: 15px; display: flex; gap: 15px;">
+                <a href="#">Xem chi tiết →</a>
+                <a href="#" style="color: #333; text-decoration: none;">🔗 GitHub</a>
+                <a href="#" style="color: #28a745; text-decoration: none;">🌐 Live Demo</a>
+            </div>
+        </div>
+    </article>
+
+    <article class="project-card" data-category="Ứng dụng" data-tags="HTML/CSS">
+        <div class="project-thumb">PROJECT 02</div>
+        <div class="project-body">
+            <span class="tag">Ứng dụng</span>
+            <!-- Thêm class project-title vào thẻ h3 -->
+            <h3 class="project-title">Ứng dụng Quản lý Chi tiêu</h3>
+            <p>Mô tả ngắn về vai trò và kết quả thực hiện dự án.</p>
+            <div class="tag-list">
+                <span>HTML/CSS</span>
+            </div>
+            <div class="project-links" style="margin-top: 15px; display: flex; gap: 15px;">
+                <a href="#">Xem chi tiết →</a>
+                <a href="#" style="color: #333; text-decoration: none;">🔗 GitHub</a>
+                <a href="#" style="color: #28a745; text-decoration: none;">🌐 Live Demo</a>
+            </div>
+        </div>
+    </article>
+</section>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const txtSearch = document.getElementById("txtSearch");
+        const ddlCategory = document.getElementById("ddlCategory");
+        const ddlTag = document.getElementById("ddlTag");
+        const projectCards = document.querySelectorAll(".project-card");
+        if (!txtSearch || !ddlCategory || !ddlTag || projectCards.length === 0) {
+            console.warn("Portfolio Filter: Không tìm thấy một số phần tử giao diện.");
+            return;
+        }
+
+        function thuHienLocDuAn() {
+            const keyword = txtSearch.value.toLowerCase().trim();
+            const selectedCategory = ddlCategory.value;
+            const selectedTag = ddlTag.value;
+
+            projectCards.forEach(card => {
+                const title = card.querySelector(".project-title").textContent.toLowerCase();
+                const category = card.getAttribute("data-category");
+                const tags = card.getAttribute("data-tags");
+
+                const matchKeyword = title.includes(keyword);
+                const matchCategory = selectedCategory === "" || category === selectedCategory;
+                const matchTag = selectedTag === "" || tags.includes(selectedTag);
+
+                if (matchKeyword && matchCategory && matchTag) {
+                    card.style.display = "block";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        txtSearch.addEventListener("input", thuHienLocDuAn);
+        ddlCategory.addEventListener("change", thuHienLocDuAn);
+        ddlTag.addEventListener("change", thuHienLocDuAn);
+    });
+</script>

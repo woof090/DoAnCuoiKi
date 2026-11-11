@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+<section class="page-heading">
+    <span class="eyebrow">BLOG & NEWS</span>
+    <h1>Bài viết</h1>
+    <p>Chia sẻ kiến thức, kinh nghiệm và góc nhìn cá nhân.</p>
+</section>
+<div class="filter-bar">
+    <input type="search" placeholder="Tìm bài viết..." />
+    <select>
+        <option>Tất cả danh mục</option>
+        <option>Học tập</option>
+        <option>Công nghệ</option>
+    </select>
+</div>
+<section class="blog-grid">
+    <article class="blog-card">
+        <div class="blog-thumb">BLOG IMAGE</div>
+        <div class="blog-body">
+            <span class="muted">DD/MM/YYYY · Công nghệ</span>
+            <h3>Tiêu đề bài viết mẫu</h3>
+            <p>Một đoạn giới thiệu ngắn cho nội dung bài viết...</p>
+            <a href="#">Đọc tiếp →</a>
+        </div>
+    </article>
+    <article class="blog-card">
+        <div class="blog-thumb">BLOG IMAGE</div>
+        <div class="blog-body">
+            <span class="muted">DD/MM/YYYY · Học tập</span>
+            <h3>Tiêu đề bài viết mẫu</h3>
+            <p>Một đoạn giới thiệu ngắn cho nội dung bài viết...</p>
+            <a href="#">Đọc tiếp →</a>
+        </div>
+    </article>
+</section>
+
