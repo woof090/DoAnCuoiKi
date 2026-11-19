@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "DuAn";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+<section class="page-heading">
+    <span class="eyebrow">MY WORK</span>
+    <h1>Dự án đã thực hiện</h1>
+    <p>Một số dự án cá nhân và dự án học tập.</p>
+</section>
+<div class="filter-bar">
+    <input type="search" placeholder="Tìm tên dự án..." />
+    <select>
+        <option>Tất cả danh mục</option>
+        <option>Website</option>
+        <option>Ứng dụng</option>
+    </select>
+    <select>
+        <option>Tất cả tag</option>
+        <option>ASP.NET MVC</option>
+        <option>HTML/CSS</option>
+    </select>
+</div>
+<section class="project-grid">
+    <article class="project-card">
+        <div class="project-thumb">PROJECT 01</div>
+        <div class="project-body">
+            <span class="tag">Website</span>
+            <h3>Tên dự án mẫu</h3>
+            <p>Mô tả ngắn về mục tiêu, chức năng và công nghệ sử dụng trong dự án.</p>
+            <div class="tag-list">
+                <span>ASP.NET MVC</span>
+                <span>SQL Server</span>
+            </div>
+            <a href="#">Xem chi tiết →</a>
+        </div>
+    </article>
+    <article class="project-card">
+        <div class="project-thumb">PROJECT 02</div>
+        <div class="project-body">
+            <span class="tag">Ứng dụng</span>
+            <h3>Tên dự án mẫu</h3>
+            <p>Mô tả ngắn về vai trò và kết quả thực hiện dự án.</p>
+            <div class="tag-list">
+                <span>HTML</span>
+                <span>CSS</span>
+            </div>
+            <a href="#">Xem chi tiết →</a>
+        </div>
+    </article>
+</section>
+

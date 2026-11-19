@@ -1,0 +1,47 @@
+﻿
+@model DuAnCuoiKy_Nhom08.Models.Certificate
+
+@{
+    ViewBag.Title = "ThemChungChi";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/LayoutStyleSheet.css" rel="stylesheet" />
+<h2>Thêm chứng chỉ</h2>
+
+@using (Html.BeginForm("ThemChungChi", "Certificates", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div>
+        <label>Tên chứng chỉ</label>
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <label>Đơn vị cấp</label>
+        @Html.TextBoxFor(m => m.Organization, new { @class = "form-control" })
+    </div>
+
+    <div>
+        <label>Ngày cấp</label>
+        @Html.TextBoxFor(m => m.IssueDate, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+    </div>
+
+    <div>
+        <label>Đường dẫn xác thực</label>
+        @Html.TextBoxFor(m => m.CertificateURL, new { @class = "form-control" })
+    </div>
+
+    <div>
+        @Html.TextBoxFor(m => m.Image, new { @class = "form-control" })
+        <input type="file" name="ImageFile" id="ImageFile" accept="image/*" class="form-control" />
+    </div>
+
+    <br />
+
+    <input type="submit" value="TẠO MỚI" />
+
+    <div>
+        @Html.ActionLink("TRỞ LẠI", "ChungChi")
+    </div>
+}

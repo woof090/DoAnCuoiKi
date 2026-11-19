@@ -1,0 +1,54 @@
+﻿@model DuAnCuoiKy_Nhom08.Models.BlogPostFormViewModel
+@{
+    ViewBag.Title = (string)ViewBag.FormTitle;
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+    var isNew = Model.PostID == 0;
+}
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+@Html.Partial("_AdminNav")
+
+<section class="page-heading">
+    <span class="eyebrow">BLOG & NEWS</span>
+    <h1>@ViewBag.FormTitle</h1>
+</section>
+
+@using (Html.BeginForm(isNew ? "BlogCreate" : "BlogEdit", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", @class = "admin-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.PostID)
+
+    <div class="field">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new { maxlength = 300, placeholder = "Nhập tiêu đề bài viết..." })
+        @Html.ValidationMessageFor(m => m.Title, "", new { @class = "field-error" })
+    </div>
+
+    <div class="field">
+        @Html.LabelFor(m => m.Content)
+        @Html.TextAreaFor(m => m.Content, 14, 80, new { placeholder = "Nhập nội dung. Dòng trống để tách đoạn văn." })
+        @Html.ValidationMessageFor(m => m.Content, "", new { @class = "field-error" })
+    </div>
+
+    <div class="field">
+        @Html.LabelFor(m => m.ThumbnailFile)
+        @if (!string.IsNullOrEmpty(Model.Thumbnail))
+        {
+            <img class="form-preview" src="@Url.Content(Model.Thumbnail)" alt="Ảnh hiện tại" />
+            <label class="check"><input type="checkbox" name="RemoveThumbnail" value="true" /> Xóa ảnh hiện tại</label>
+        }
+        <input type="file" name="ThumbnailFile" accept="image/png,image/jpeg,image/gif,image/webp" />
+        <small class="muted">JPG, PNG, GIF hoặc WEBP, tối đa 2 MB. Chọn ảnh mới để thay thế ảnh hiện tại.</small>
+        @Html.ValidationMessageFor(m => m.ThumbnailFile, "", new { @class = "field-error" })
+    </div>
+
+    <div class="field field-row">
+        <label class="check">@Html.CheckBoxFor(m => m.IsPublished) Xuất bản (Published)</label>
+        <label class="check">@Html.CheckBoxFor(m => m.IsFeatured) Bài viết nổi bật (Featured)</label>
+    </div>
+    <small class="muted">Bỏ chọn “Xuất bản” để lưu bài ở dạng nháp (Draft) – khách truy cập sẽ không nhìn thấy.</small>
+
+    <div class="form-actions">
+        <button type="submit" class="button-primary">@(isNew ? "Thêm bài viết" : "Lưu thay đổi")</button>
+        <a class="button-outline" href="@Url.Action("Blogs", "Admin")">Hủy</a>
+    </div>
+}

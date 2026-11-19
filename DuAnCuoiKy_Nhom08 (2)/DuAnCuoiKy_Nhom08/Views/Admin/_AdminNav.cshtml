@@ -1,0 +1,17 @@
+﻿@{
+    var action = (ViewContext.RouteData.Values["action"] ?? "").ToString();
+}
+<div class="admin-bar">
+    <div class="admin-bar-title">
+        Khu vực quản trị <span class="muted">· Xin chào, @Session["AdminName"]</span>
+    </div>
+    <nav class="admin-tabs">
+        <a href="@Url.Action("Blogs", "Admin")" class="@(action.StartsWith("Blog") ? "active" : "")">Bài viết</a>
+        <a href="@Url.Action("Profile", "Admin")" class="@(action == "Profile" ? "active" : "")">Giới thiệu</a>
+        <a href="@Url.Action("ChangePassword", "Admin")" class="@(action == "ChangePassword" ? "active" : "")">Đổi mật khẩu</a>
+    </nav>
+</div>
+@if (TempData["Message"] != null)
+{
+    <div class="flash">@TempData["Message"]</div>
+}

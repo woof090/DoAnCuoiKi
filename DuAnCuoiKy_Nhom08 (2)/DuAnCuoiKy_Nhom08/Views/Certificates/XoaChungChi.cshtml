@@ -1,0 +1,68 @@
+﻿@model DuAnCuoiKy_Nhom08.Models.Certificate
+
+@{
+    ViewBag.Title = "XoaChungChi";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/LayoutStyleSheet.css" rel="stylesheet" />
+<div style="margin: 10px auto; width: 70%;">
+    <h3 style="text-align:center">
+        BẠN CÓ CHẮC CHẮN MUỐN XÓA CHỨNG CHỈ NÀY?
+    </h3>
+    
+    <div>
+        <h4>Certificate</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Tên Chứng Chỉ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt>
+                Nơi Cấp Chứng Chỉ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Organization)
+            </dd>
+
+            <dt>
+                Ngày Cấp
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.IssueDate)
+            </dd>
+
+            <dt>
+                Đường Link Chứng Chỉ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.CertificateURL)
+            </dd>
+
+            <dt>
+                Ảnh Chụp Chứng Chỉ
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Image)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.CertificateID)
+
+                <input type="submit" value="Xóa"/> <span> |</span>
+                @Html.ActionLink("Trở Lại", "ChungChi");
+        }
+    </div>
+</div>

@@ -1,0 +1,59 @@
+﻿@model DuAnCuoiKy_Nhom08.Models.Certificate
+
+@{
+    ViewBag.Title = "Xemchitiet";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/LayoutStyleSheet.css" rel="stylesheet" />
+<h2>Xemchitiet</h2>
+
+<div>
+    <h4>Certificate</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Tên Chứng Chỉ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            Nơi cấp chứng chỉ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Organization)
+        </dd>
+
+        <dt>
+            Ngày cấp
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IssueDate)
+        </dd>
+
+        <dt>
+            Đường Link chứng chỉ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CertificateURL)
+        </dd>
+
+        <dt>
+            Ảnh chụp Chứng chỉ
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Image)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Chỉnh Sửa", "Chinhsua", new { id = Model.CertificateID }) |
+    @Html.ActionLink("Trở Lại", "ChungChi")
+</p>

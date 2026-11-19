@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/Content/MyStyleSheet/LayoutStyleSheet.css")" rel="stylesheet" />
+    <script src="@Url.Content("~/Scripts/MyScripts/LayoutJavaScript.js")"></script>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-container">
+            <!-- LOGO -->
+            <a href="@Url.Action("Index", "PersonalPortfolio")" class="logo">
+                <img src="@Url.Content("~/Images/Logo/Logo_02.png")" alt="Logo">
+            </a>
+            <!-- TÊN WEBSITE -->
+            <a href="@Url.Action("Index", "PersonalPortfolio")"
+               class="website-name">
+                PERSONAL PORTFOLIO
+            </a>
+            <!-- TÌM KIẾM -->
+            <div class="header-search">
+                <i class="fas fa-search"></i>
+                <input type="search" placeholder="Tìm kiếm...">
+            </div>
+            <!-- LOGIN -->
+            @if (Session["AdminID"] != null)
+            {
+                <div class="header-actions admin-actions">
+                    <a href="@Url.Action("Blogs", "Admin")" class="btn-login">Quản trị</a>
+                    <form method="post" action="@Url.Action("Logout", "PersonalPortfolio")" class="logout-form">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn-login btn-logout">Đăng xuất</button>
+                    </form>
+                </div>
+            }
+            else
+            {
+                <div class="header-actions">
+                    <a href="@Url.Action("Login", "PersonalPortfolio")" class="btn-login">Login</a>
+                </div>
+            }
+            <!-- SETTING -->
+            <div class="header-setting">
+                <button type="button"
+                        class="setting-btn"
+                        id="settingBtn"
+                        aria-label="Cài đặt"
+                        aria-expanded="false">
+                    <i class="fas fa-gear">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-settings preview-icon">
+                            <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" />
+                            <circle cx="12" cy="12" r="3" />
+                        </svg>
+                    </i>
+                </button>
+                <!-- BẢNG CÀI ĐẶT -->
+                <div class="setting-menu" id="settingMenu">
+                    <!-- TIÊU ĐỀ -->
+                    <div class="setting-menu-header">
+                        <div class="setting-heading">
+                            <i class="fas fa-gear"></i>
+                            <span>Cài đặt</span>
+                        </div>
+                        <button type="button"
+                                class="setting-close"
+                                id="settingClose">
+                            <i class="fas fa-xmark"></i>
+                        </button>
+                    </div>
+                    <!-- TÀI KHOẢN -->
+                    <a class="setting-menu-item"
+                       href="@Url.Action("Index", "PersonalPortfolio")">
+                        <i class="fas fa-user"></i>
+                        <span>Tài khoản</span>
+                        <i class="fas fa-chevron-right setting-arrow"></i>
+                    </a>
+                    <!-- GIAO DIỆN -->
+                    <div class="setting-group">
+                        <div class="setting-label">
+                            <i class="fas fa-palette"></i>
+                            <span>Giao diện</span>
+                        </div>
+                        <div class="theme-switch">
+                            <button type="button"
+                                    class="theme-btn active"
+                                    data-theme="light">
+                                <i class="fas fa-sun"></i>
+                                Ánh sáng
+                            </button>
+                            <button type="button"
+                                    class="theme-btn"
+                                    data-theme="dark">
+                                <i class="fas fa-moon"></i>
+                                Đêm tối
+                            </button>
+                        </div>
+                    </div>
+                    <!-- NGÔN NGỮ -->
+                    <div class="setting-group">
+                        <label class="setting-label"
+                               for="languageSelect">
+                            <i class="fas fa-globe"></i>
+                            <span>Ngôn ngữ</span>
+                        </label>
+                        <select id="languageSelect"
+                                class="setting-select">
+                            <option value="vi">🇻🇳 Tiếng Việt</option>
+                            <option value="en">🇬🇧 English</option>
+                        </select>
+                    </div>
+                    <!-- THÔNG BÁO -->
+                    <div class="setting-menu-item setting-notification">
+                        <span class="setting-item-title">
+                            <i class="fas fa-bell"></i>
+                            <span>Thông báo</span>
+                        </span>
+                        <label class="switch">
+                            <input type="checkbox"
+                                   id="notificationToggle"
+                                   checked>
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="setting-divider"></div>
+                    <!-- GIỚI THIỆU -->
+                    <a class="setting-menu-item"
+                       href="@Url.Action("Xemprofile", "Profile")">
+                        <i class="fas fa-circle-info"></i>
+                        <span>Giới thiệu</span>
+                        <i class="fas fa-chevron-right setting-arrow"></i>
+                    </a>
+                    <!-- ĐĂNG XUẤT -->
+                    <a class="setting-menu-item setting-logout"
+                       href="@Url.Action("Dangnhap", "Admin")">
+                        <i class="fas fa-right-from-bracket"></i>
+                        <span>Đăng xuất</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- MAIN LAYOUT -->
+    <div class="main-layout">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <nav class="menu">
+                <a href="@Url.Action("Index", "PersonalPortfolio")"
+                   class="mn-fm">
+                    <i class="fas fa-house nav-icon"></i>
+                    <span>Trang chủ</span>
+                </a>
+                <a href="@Url.Action("Xemprofile", "Profile")" class="mn-fm">
+                    <i class="fas fa-circle-info nav-icon"></i>
+                    <span>Giới thiệu</span>
+                </a>
+                <a href="@Url.Action("KyNang", "PersonalPortfolio")"
+                   class="mn-fm">
+                    <i class="fas fa-code nav-icon"></i>
+                    <span>Kỹ năng</span>
+                </a>
+                <a href="@Url.Action("DuAn", "PersonalPortfolio")"
+                   class="mn-fm">
+                    <i class="fas fa-briefcase nav-icon"></i>
+                    <span>Dự án</span>
+                </a>
+                <a href="@Url.Action("KinhNghiem", "PersonalPortfolio")"
+                   class="mn-fm">
+                    <i class="fas fa-star nav-icon"></i>
+                    <span>Kinh nghiệm</span>
+                </a>
+                <a href="@Url.Action("HocVan", "PersonalPortfolio")"
+                   class="mn-fm">
+                    <i class="fas fa-graduation-cap nav-icon"></i>
+                    <span>Học vấn</span>
+                </a>
+                <a href="@Url.Action("ChungChi", "Certificates")"
+                   class="mn-fm">
+                    <i class="fas fa-award nav-icon"></i>
+                    <span>Chứng chỉ</span>
+                </a>
+                <a href="@Url.Action("Blog", "PersonalPortfolio")"
+                   class="mn-fm">
+                    <i class="fas fa-file-lines nav-icon"></i>
+                    <span>Blog</span>
+                </a>
+                <a href="@Url.Action("LienHe", "PersonalPortfolio")"
+                   class="mn-fm">
+                    <i class="fas fa-envelope nav-icon"></i>
+                    <span>Liên hệ</span>
+                </a>
+            </nav>
+        </aside>
+        <!-- NỘI DUNG CHÍNH -->
+        <main class="main">
+            @RenderBody()
+        </main>
+    </div>
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-logo">
+                <h3>PERSONAL PORTFOLIO</h3>
+                <p>Giới thiệu bản thân và các dự án cá nhân.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Liên kết</h4>
+                <a href="@Url.Action("Index", "PersonalPortfolio")">Trang chủ</a>
+                <a href="@Url.Action("Xemprofile","Profile")">Giới Thiệu</a>
+                <a href="@Url.Action("DuAn", "PersonalPortfolio")">Dự án</a>
+                <a href="@Url.Action("LienHe", "PersonalPortfolio")">Liên hệ</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Liên hệ</h4>
+                <p>Email: example@gmail.com</p>
+                <p>Điện thoại: 0123 456 789</p>
+                <p>Địa chỉ: Việt Nam</p>
+            </div>
+            <div class="footer-social">
+                <h4>Kết nối</h4>
+                <a href="#">Facebook</a>
+                <a href="#">GitHub</a>
+                <a href="#">LinkedIn</a>
+            </div>
+        </div>
+        <div class="footer-copyright">
+            <p>© @DateTime.Now.Year PERSONAL PORTFOLIO. Nhóm 8.</p>
+        </div>
+    </footer>
+</body>
+</html>

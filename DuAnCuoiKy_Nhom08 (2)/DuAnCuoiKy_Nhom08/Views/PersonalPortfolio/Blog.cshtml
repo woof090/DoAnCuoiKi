@@ -1,0 +1,101 @@
+﻿
+@model DuAnCuoiKy_Nhom08.Models.BlogListViewModel
+@{
+    ViewBag.Title = "Blog";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+    var query = string.IsNullOrEmpty(Model.Query) ? null : Model.Query;
+}
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+<section class="page-heading">
+    <span class="eyebrow">BLOG & NEWS</span>
+    <h1>Bài viết</h1>
+    <p>Chia sẻ kiến thức, kinh nghiệm và góc nhìn cá nhân.</p>
+</section>
+<form method="get" action="@Url.Action("Blog", "PersonalPortfolio")" class="filter-bar">
+    <input type="search" name="q" value="@Model.Query" placeholder="Tìm bài viết..." />
+    <button type="submit" class="button-primary">Tìm kiếm</button>
+</form>
+
+@if (Session["AdminID"] != null)
+{
+    <p class="admin-hint">
+        Bạn đang đăng nhập quản trị.
+        <a href="@Url.Action("Blogs", "Admin")">Quản lý bài viết →</a>
+    </p>
+}
+
+@if (Model.Featured.Count > 0)
+{
+    <section class="section-block">
+        <div class="section-heading">
+            <span class="eyebrow">NỔI BẬT</span>
+            <h2>Bài viết nổi bật</h2>
+        </div>
+        <div class="blog-grid">
+            @foreach (var post in Model.Featured)
+            {
+                @Html.Partial("_BlogCard", post)
+            }
+        </div>
+    </section>
+}
+
+<section class="section-block">
+    @if (Model.Featured.Count > 0 || Model.Query != null && Model.Query.Length > 0)
+    {
+        <div class="section-heading">
+            @if (Model.Query != null && Model.Query.Length > 0)
+            {
+                <span class="eyebrow">KẾT QUẢ TÌM KIẾM</span>
+                <h2>@Model.TotalItems bài viết cho “@Model.Query”</h2>
+            }
+            else
+            {
+                <span class="eyebrow">MỚI NHẤT</span>
+                <h2>Tất cả bài viết</h2>
+            }
+        </div>
+    }
+
+    @if (Model.Posts.Count == 0 && Model.Featured.Count == 0)
+    {
+        <p class="muted">
+            @(Model.Query != null && Model.Query.Length > 0 ? "Không tìm thấy bài viết phù hợp." : "Chưa có bài viết nào được xuất bản.")
+        </p>
+    }
+    else
+    {
+        <div class="blog-grid">
+            @foreach (var post in Model.Posts)
+            {
+                @Html.Partial("_BlogCard", post)
+            }
+        </div>
+    }
+
+    @if (Model.TotalPages > 1)
+    {
+        <nav class="pagination" aria-label="Phân trang">
+            @if (Model.Page > 1)
+            {
+                <a href="@Url.Action("Blog", "PersonalPortfolio", new { q = query, page = Model.Page - 1 })">← Trước</a>
+            }
+            @for (int i = 1; i <= Model.TotalPages; i++)
+            {
+                if (i == Model.Page)
+                {
+                    <span class="current">@i</span>
+                }
+                else
+                {
+                    <a href="@Url.Action("Blog", "PersonalPortfolio", new { q = query, page = i })">@i</a>
+                }
+            }
+            @if (Model.Page < Model.TotalPages)
+            {
+                <a href="@Url.Action("Blog", "PersonalPortfolio", new { q = query, page = Model.Page + 1 })">Sau →</a>
+            }
+        </nav>
+    }
+</section>
+

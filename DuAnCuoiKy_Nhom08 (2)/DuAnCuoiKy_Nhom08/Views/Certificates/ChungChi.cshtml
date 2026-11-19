@@ -1,0 +1,47 @@
+﻿@model IEnumerable<DuAnCuoiKy_Nhom08.Models.Certificate>
+
+@{
+    ViewBag.Title = "ChungChi";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css?v=6" rel="stylesheet" />
+
+<section class="page-heading">
+    <span class="eyebrow">CERTIFICATES</span>
+    <h1>Chứng chỉ &amp; thành tựu</h1>
+    <p class="muted">Các chứng chỉ, giải thưởng và thành tích đã đạt được.</p>
+    <p>
+        @Html.ActionLink("THÊM CHỨNG CHỈ", "ThemChungChi")
+    </p>
+</section>
+
+<section class="certificate-grid">
+    @foreach (var item in Model)
+    {
+        <article class="certificate-card">
+            <div class="certificate-image">
+                @if (!string.IsNullOrEmpty(item.Image))
+                {
+                    <img src="@Url.Content(item.Image)" alt="@item.Name" />
+                }
+                else
+                {
+                    <span>Chứng chỉ</span>
+                }
+            </div>
+
+            <div class="certificate-body">
+                <h3>@item.Name</h3>
+                <p>Đơn vị cấp: @item.Organization</p>
+                <p>Ngày cấp: @item.IssueDate</p>
+                <a href="@item.CertificateURL" target="_blank">Xem xác thực →</a>
+
+                <div>
+                    @Html.ActionLink("Sửa", "Chinhsua", new { id = item.CertificateID }) |
+                    @Html.ActionLink("Chi tiết", "Xemchitiet", new { id = item.CertificateID }) |
+                    @Html.ActionLink("Xóa", "XoaChungChi", new { id = item.CertificateID })
+                </div>
+            </div>
+        </article>
+    }
+</section>

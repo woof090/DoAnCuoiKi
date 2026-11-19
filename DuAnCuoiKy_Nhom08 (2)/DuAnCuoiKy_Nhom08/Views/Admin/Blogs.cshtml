@@ -1,0 +1,108 @@
+﻿@model DuAnCuoiKy_Nhom08.Models.AdminBlogListViewModel
+@{
+    ViewBag.Title = "Quản lý bài viết";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+@Html.Partial("_AdminNav")
+
+<section class="page-heading">
+    <span class="eyebrow">BLOG & NEWS</span>
+    <h1>Quản lý bài viết</h1>
+    <p>Xuất bản / chuyển về nháp và đánh dấu nổi bật cho từng bài viết.</p>
+</section>
+
+<div class="admin-toolbar">
+    <div class="filter-tabs">
+        <a href="@Url.Action("Blogs", "Admin", new { filter = "all" })" class="@(Model.Filter == "all" ? "active" : "")">Tất cả (@Model.CountAll)</a>
+        <a href="@Url.Action("Blogs", "Admin", new { filter = "published" })" class="@(Model.Filter == "published" ? "active" : "")">Published (@Model.CountPublished)</a>
+        <a href="@Url.Action("Blogs", "Admin", new { filter = "draft" })" class="@(Model.Filter == "draft" ? "active" : "")">Draft (@Model.CountDraft)</a>
+        <a href="@Url.Action("Blogs", "Admin", new { filter = "featured" })" class="@(Model.Filter == "featured" ? "active" : "")">Featured (@Model.CountFeatured)</a>
+    </div>
+    <form method="get" action="@Url.Action("Blogs", "Admin")" class="admin-search">
+        <input type="hidden" name="filter" value="@Model.Filter" />
+        <input type="search" name="q" value="@Model.Query" placeholder="Tìm theo tiêu đề..." />
+        <button type="submit" class="button-outline">Tìm</button>
+    </form>
+    <a class="button-primary" href="@Url.Action("BlogCreate", "Admin")">+ Thêm bài viết</a>
+</div>
+
+@if (Model.Rows.Count == 0)
+{
+    <p class="muted">Không có bài viết nào.</p>
+}
+else
+{
+    <div class="table-wrap">
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>Tiêu đề</th>
+                    <th>Trạng thái</th>
+                    <th>Featured</th>
+                    <th>Ngày tạo</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var row in Model.Rows)
+                {
+                    <tr>
+                        <td class="col-title">
+                            <a href="@Url.Action("BlogDetail", "PersonalPortfolio", new { id = row.PostID })">@row.Title</a>
+                        </td>
+                        <td>
+                            @if (row.IsPublished)
+                            {
+                                <span class="badge badge-published">Published</span>
+                            }
+                            else
+                            {
+                                <span class="badge badge-draft">Draft</span>
+                            }
+                        </td>
+                        <td>
+                            @if (row.IsFeatured)
+                            {
+                                <span class="badge badge-featured">★ Nổi bật</span>
+                            }
+                            else
+                            {
+                                <span class="muted">—</span>
+                            }
+                        </td>
+                        <td>@(row.CreatedDate.HasValue ? row.CreatedDate.Value.ToString("dd/MM/yyyy") : "")</td>
+                        <td class="col-actions">
+                            <a class="link-action" href="@Url.Action("BlogEdit", "Admin", new { id = row.PostID })">Sửa</a>
+
+                            <form method="post" action="@Url.Action("BlogTogglePublish", "Admin")" class="inline-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@row.PostID" />
+                                <input type="hidden" name="filter" value="@Model.Filter" />
+                                <button type="submit" class="link-action">@(row.IsPublished ? "Chuyển về nháp" : "Xuất bản")</button>
+                            </form>
+
+                            <form method="post" action="@Url.Action("BlogToggleFeatured", "Admin")" class="inline-form">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@row.PostID" />
+                                <input type="hidden" name="filter" value="@Model.Filter" />
+                                <button type="submit" class="link-action">@(row.IsFeatured ? "Bỏ nổi bật" : "Đánh dấu nổi bật")</button>
+                            </form>
+
+                            <form method="post" action="@Url.Action("BlogDelete", "Admin")" class="inline-form"
+                                  onsubmit="return confirm('Xóa bài viết này? Hành động không thể hoàn tác.');">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="id" value="@row.PostID" />
+                                <input type="hidden" name="filter" value="@Model.Filter" />
+                                <button type="submit" class="link-action link-danger">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <p class="muted small-note">
+        Chỉ bài ở trạng thái <b>Published</b> mới hiển thị ở trang Blog công khai. Bài Featured (đã Published) được ghim ở đầu trang Blog.
+    </p>
+}

@@ -1,0 +1,89 @@
+﻿@model DuAnCuoiKy_Nhom08.Models.Profile
+
+@{
+    ViewBag.Title = "ChinhsuaProfile";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css?v=3" rel="stylesheet" />
+
+<section class="page-heading">
+    <span class="eyebrow">EDIT PROFILE</span>
+    <h1>Chỉnh sửa thông tin</h1>
+    <p class="muted">Cập nhật thông tin cá nhân và ảnh đại diện hiển thị trên hồ sơ.</p>
+</section>
+
+@using (Html.BeginForm("ChinhsuaProfile", "Profile", new { id = Model.ProfileID }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.ProfileID)
+    @Html.HiddenFor(model => model.AdminID)
+
+    <section class="about-card">
+        <div class="edit-profile-layout">
+            <div class="edit-avatar-col">
+                <div class="avatar-box">
+                    @if (!string.IsNullOrEmpty(Model.Avatar))
+                    {
+                        <img id="previewAvatar" src="@Url.Content(Model.Avatar)" alt="Ảnh hiện tại" />
+                        <input type="file" name="ImageFile" id="ImageFile" accept="image/*" class="file-input-custom" onchange="showFileName(this)" />
+                    }
+                    else
+                    {
+                        <div class="avatar-placeholder">
+                            ẢNH<br />SAI ĐỊNH DẠNG
+                        </div>
+                    }
+                </div>
+                <label for="ImageFile" class="upload-label">Đổi ảnh đại diện</label>
+                <input type="file" name="ImageFile" id="ImageFile" accept="image/*" class="file-input-custom" onchange="previewImage(this)" />
+                <span class="muted" style="font-size: 12px; text-align: center;">Nên chọn file .png hoặc .jpg</span>
+            </div>
+            <div class="edit-fields-col">
+                <div class="edit-grid">
+                    <div class="field-box">
+                        <label class="field-label">Họ và tên</label>
+                        @Html.EditorFor(model => model.FullName, new { htmlAttributes = new { @class = "input-custom input-readonly", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.FullName, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="field-box">
+                        <label class="field-label">Email</label>
+                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input-custom input-readonly", @readonly = "readonly" } })
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="field-box">
+                        <label class="field-label">Chuyên ngành / Chức danh</label>
+                        @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "input-custom", placeholder = "VD: Sinh viên ngành CNTT..." } })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="field-box">
+                        <label class="field-label">Số điện thoại</label>
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "input-custom", placeholder = "Nhập số điện thoại..." } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="field-box field-full">
+                        <label class="field-label">Địa chỉ</label>
+                        @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "input-custom", placeholder = "Nhập địa chỉ..." } })
+                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="field-box field-full">
+                        <label class="field-label">Mô tả bản thân</label>
+                        @Html.TextAreaFor(model => model.Description, new { @class = "input-custom textarea-custom", rows = 4, placeholder = "Giới thiệu ngắn gọn về bản thân..." })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn-save">Lưu thay đổi</button>
+                    @Html.ActionLink("Trở lại", "Xemprofile", null, new { @class = "btn-back" })
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
