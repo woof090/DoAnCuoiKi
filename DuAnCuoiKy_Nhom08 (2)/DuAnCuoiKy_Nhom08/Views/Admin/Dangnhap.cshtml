@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Dangnhap";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/LayoutStyleSheet.css" rel="stylesheet" />
+
+<div class="login-container">
+    <div class="login-box">
+        <img src="~/Images/Logo/Login_01.jpg" alt="Logo" class="login-logo">
+        <div id="dangnhapForm">
+            <div class="login-title">
+                <h1>Đăng nhập</h1>
+                <p>Chào mừng bạn quay trở lại!</p>
+            </div>
+            <form id="formLogin" action="@Url.Action("Dangnhap", "Admin")" method="post">
+                <div class="form-group">
+                    <div class="form-group">
+                        <div class="input-icon">
+                            <input type="text"
+                                   id="username"
+                                   name="Username"
+                                   placeholder="Tên đăng nhập"
+                                   required>
+                            <img src="~/Images/Icon/Icon_Email.png" alt="icon">
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="password"
+                               id="passwordhash"
+                               name="PasswordHash"
+                               placeholder="Mật khẩu"
+                               required>
+                        <span class="input-icon">
+                            <img src="~/Images/Icon/Icon_Lock_Person.png" alt="icon">
+                        </span>
+                    </div>
+                    <div class="forgot-password">
+                        <a href="#">Quên mật khẩu?</a>
+                    </div>
+                    <button type="submit">
+                        Đăng nhập ⇥
+                    </button>
+                    </div>
+            </form>
+            <p class="register-link">
+                Chưa có tài khoản?
+                <a href="@Url.Action("Dangky","Admin")">
+                    Đăng ký
+                </a>
+            </p>
+        </div>
+        <a href="@Url.Action("Index", "PersonalPortfolio")" class="home-link">
+            ← Quay lại trang chủ
+        </a>
+    </div>
+</div>
+
+

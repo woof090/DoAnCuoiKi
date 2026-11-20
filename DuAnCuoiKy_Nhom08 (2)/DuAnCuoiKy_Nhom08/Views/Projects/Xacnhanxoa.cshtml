@@ -1,0 +1,88 @@
+﻿@model DuAnCuoiKy_Nhom08.Models.Project
+
+@{
+    ViewBag.Title = "Xacnhanxoa";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+<link href="~/Content/MyStyleSheet/LayoutStyleSheet.css" rel="stylesheet" />
+
+<section class="page-heading">
+    <span class="eyebrow">DELETE PROJECT</span>
+    <h1>Xác nhận xóa dự án</h1>
+    <p>Hành động này sẽ xóa vĩnh viễn dự án khỏi danh sách. Vui lòng kiểm tra kỹ trước khi xác nhận.</p>
+</section>
+
+<div class="about-card">
+    <div class="project-detail-hero">
+        @if (!string.IsNullOrEmpty(Model.Image))
+        {
+            <img src="@Model.Image" alt="@Model.Title" />
+        }
+        else
+        {
+            <span>PROJECT @Model.ProjectID.ToString("D2")</span>
+        }
+    </div>
+
+    <div style="margin-top: 20px;">
+        @if (Model.Category != null)
+        {
+            <span class="tag">@Model.Category.CategoryName</span>
+        }
+
+        <h3 style="margin-top: 10px;">@Model.Title</h3>
+
+        @if (Model.Tags != null && Model.Tags.Any())
+        {
+            <div class="tag-list">
+                @foreach (var tag in Model.Tags)
+                {
+                    <span>@tag.TagName</span>
+                }
+            </div>
+        }
+
+        <p class="muted" style="margin-top: 10px; white-space: pre-line;">
+            @(string.IsNullOrWhiteSpace(Model.Description) ? "Không có mô tả." : Model.Description)
+        </p>
+
+        <div class="detail-grid">
+            <div>
+                <span class="contact-label">Danh mục</span>
+                <strong class="contact-value">@(Model.Category != null ? Model.Category.CategoryName : Model.CategoryID.ToString())</strong>
+            </div>
+            <div>
+                <span class="contact-label">Ngày tạo</span>
+                <strong class="contact-value">@(Model.CreatedDate.HasValue ? Model.CreatedDate.Value.ToString("dd/MM/yyyy") : "Chưa cập nhật")</strong>
+            </div>
+            <div>
+                <span class="contact-label">Link Demo / Website</span>
+                <span class="contact-value">@(string.IsNullOrWhiteSpace(Model.ProjectURL) ? "Chưa cập nhật" : Model.ProjectURL)</span>
+            </div>
+            <div>
+                <span class="contact-label">GitHub Repository</span>
+                <span class="contact-value">@(string.IsNullOrWhiteSpace(Model.GithubURL) ? "Chưa cập nhật" : Model.GithubURL)</span>
+            </div>
+            <div>
+                <span class="contact-label">Trạng thái</span>
+                <strong class="contact-value">@(Model.Status == true ? "Đang hiển thị" : "Đang ẩn")</strong>
+            </div>
+            <div>
+                <span class="contact-label">Thứ tự hiển thị</span>
+                <strong class="contact-value">@(Model.DisplayOrder.HasValue ? Model.DisplayOrder.Value.ToString() : "Mặc định")</strong>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("Xacnhanxoa", "Projects", new { id = Model.ProjectID }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions">
+                <button type="submit" class="btn-delete-project">Xác nhận xóa</button>
+                <a href="@Url.Action("Xemproject")" class="btn-back">← Hủy và quay lại</a>
+            </div>
+        }
+    </div>
+</div>

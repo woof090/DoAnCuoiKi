@@ -12,7 +12,18 @@ namespace DuAnCuoiKy_Nhom08.Views
         // GET: Profile
         public ActionResult Xemprofile()
         {
-            var profile = db.Profiles.ToList();
+            // 1. Nếu chưa đăng nhập hoặc đã ấn Đăng xuất -> đá thẳng về trang Đăng nhập
+            if (Session["TaiKhoan"] == null)
+            {
+                return RedirectToAction("Dangnhap", "Admin");
+            }
+
+            // 2. Lấy đúng tài khoản Admin đang đăng nhập trong Session
+            var admin = (DuAnCuoiKy_Nhom08.Models.Admin)Session["TaiKhoan"];
+
+            // 3. Chỉ lọc đúng Profile của Admin đó (giữ nguyên .ToList() để khớp với @model bên View)
+            var profile = db.Profiles.Where(p => p.AdminID == admin.AdminID).ToList();
+
             return View(profile);
         }
         [HttpGet]

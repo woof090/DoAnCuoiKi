@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DuAnCuoiKy_Nhom08.Models.Project>
+
+@{
+    ViewBag.Title = "Xemproject";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+<link href="~/Content/MyStyleSheet/LayoutStyleSheet.css" rel="stylesheet" />
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+
+<section class="page-heading">
+
+    <span class="eyebrow">MY WORK</span>
+    <h1>Dự án đã thực hiện</h1>
+    <p>Một số dự án cá nhân và dự án học tập.</p>
+    <a href="@Url.Action("Taomoi")">+ Thêm dự án</a>
+</section>
+
+<form method="get" action="@Url.Action("Xemproject")" class="filter-bar">
+
+    <input type="search" name="search" placeholder="Tìm tên dự án..." />
+    <select name="categoryId" onchange="this.form.submit()">
+        <option value="">Tất cả danh mục</option>
+        @foreach (var c in ViewBag.Categories)
+        {
+            <option value="@c.CategoryID">@c.CategoryName</option>
+        }
+    </select>
+    <select name="tagId" onchange="this.form.submit()">
+        <option value="">Tất cả tag</option>
+        @foreach (var t in ViewBag.Tags)
+        {
+            <option value="@t.TagID">@t.TagName</option>
+        }
+    </select>
+</form>
+
+<section class="project-grid">
+
+    @foreach (var item in Model)
+    {
+        <article class="project-card">
+
+            <div class="project-thumb">
+
+                @if (!string.IsNullOrEmpty(item.Image))
+                {
+                    <img src="@item.Image" alt="@item.Title" style="width:100%;height:100%;object-fit:cover;" />
+                }
+                else
+                {
+                    @("PROJECT " + item.ProjectID)
+                }
+            </div>
+            <div class="project-body">
+
+                <span class="tag">@(item.Category != null ? item.Category.CategoryName : "")</span>
+                <h3>@item.Title</h3>
+                <p>@item.Description</p>
+                <div class="tag-list">
+
+                    @foreach (var t in item.Tags)
+                    {
+                        <span>@t.TagName</span>
+                    }
+                </div>
+                <a href="@Url.Action("Xemchitiet", new { id = item.ProjectID })">Xem chi tiết →</a>
+                <div>
+                    <a href="@Url.Action("Chinhsua", new { id = item.ProjectID })">Sửa</a> |
+                    <a href="@Url.Action("Xacnhanxoa", new { id = item.ProjectID })">Xóa</a>
+                </div>
+            </div>
+        </article>
+    }
+</section>

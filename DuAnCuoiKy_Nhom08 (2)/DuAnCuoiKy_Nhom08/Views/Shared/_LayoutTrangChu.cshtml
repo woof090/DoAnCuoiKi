@@ -25,22 +25,13 @@
                 <input type="search" placeholder="Tìm kiếm...">
             </div>
             <!-- LOGIN -->
-            @if (Session["AdminID"] != null)
-            {
-                <div class="header-actions admin-actions">
-                    <a href="@Url.Action("Blogs", "Admin")" class="btn-login">Quản trị</a>
-                    <form method="post" action="@Url.Action("Logout", "PersonalPortfolio")" class="logout-form">
-                        @Html.AntiForgeryToken()
-                        <button type="submit" class="btn-login btn-logout">Đăng xuất</button>
-                    </form>
-                </div>
-            }
-            else
-            {
-                <div class="header-actions">
-                    <a href="@Url.Action("Login", "PersonalPortfolio")" class="btn-login">Login</a>
-                </div>
-            }
+            <div class="header-actions">
+                <a href="@Url.Action("Dangnhap", "Admin")"
+                   class="btn-login">
+                    <i class="fas fa-user"></i>
+                    Login
+                </a>
+            </div>
             <!-- SETTING -->
             <div class="header-setting">
                 <button type="button"
@@ -133,7 +124,7 @@
                     </a>
                     <!-- ĐĂNG XUẤT -->
                     <a class="setting-menu-item setting-logout"
-                       href="@Url.Action("Dangnhap", "Admin")">
+                       href="@Url.Action("Dangxuat", "Admin")">
                         <i class="fas fa-right-from-bracket"></i>
                         <span>Đăng xuất</span>
                     </a>
@@ -160,7 +151,7 @@
                     <i class="fas fa-code nav-icon"></i>
                     <span>Kỹ năng</span>
                 </a>
-                <a href="@Url.Action("DuAn", "PersonalPortfolio")"
+                <a href="@Url.Action("Xemproject", "Projects")"
                    class="mn-fm">
                     <i class="fas fa-briefcase nav-icon"></i>
                     <span>Dự án</span>

@@ -28,6 +28,5 @@ namespace DuAnCuoiKy_Nhom08.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Profile> Profiles { get; set; }
-        public object ConfirmPassword { get; internal set; }
     }
 }

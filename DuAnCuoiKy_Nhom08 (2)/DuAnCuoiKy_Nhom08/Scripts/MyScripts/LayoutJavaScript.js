@@ -96,17 +96,10 @@
     }
 });
 //CHUYỂN ĐỔI ĐĂNG NHẬP / ĐĂNG KÝ 
-function showRegister() {
-    document.getElementById("loginForm").style.display = "none";
-    document.getElementById("registerForm").style.display = "block";
-}
-function showLogin() {
-    document.getElementById("registerForm").style.display = "none";
-    document.getElementById("loginForm").style.display = "block";
-}
+
 //KHỞI TẠO 
 document.addEventListener("DOMContentLoaded", function () {
-    const passwordInput = document.getElementById("regPassword");
+    const passwordInput = document.getElementById("passwordhash");
     const confirmInput = document.getElementById("confirmPassword");
     //KIỂM TRA MẬT KHẨU
     function checkRule(id, condition) {
@@ -171,42 +164,42 @@ document.addEventListener("DOMContentLoaded", function () {
     if (confirmInput) {
         confirmInput.addEventListener("input", checkConfirmPassword);
     }
-    const formRegister = document.getElementById("formRegister");
-    if (formRegister) {
-        formRegister.addEventListener("submit", function (e) {
-            e.preventDefault();
-            const email = document.getElementById("email").value.trim();
-            const password = passwordInput.value;
-            const confirmPassword = confirmInput.value;
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                alert("Email không đúng định dạng!");
-                return;
-            }
-            const validPassword =
-                password.length >= 8 &&
-                /[A-Z]/.test(password) &&
-                /[a-z]/.test(password) &&
-                /[0-9]/.test(password) &&
-                /[^A-Za-z0-9]/.test(password);
-            if (!validPassword) {
-                alert("Mật khẩu chưa đáp ứng đủ điều kiện!");
-                return;
-            }
-            if (password !== confirmPassword) {
-                alert("Mật khẩu nhập lại không trùng khớp!");
-                return;
-            }
-            alert("Thông tin hợp lệ! Có thể tiến hành đăng ký.");
-        });
-    }
-    const formLogin = document.getElementById("formLogin");
-    if (formLogin) {
-        formLogin.addEventListener("submit", function (e) {
-            e.preventDefault();
-            alert("Bạn cần kết nối chức năng đăng nhập với Controller!");
-        });
-    }
+    //const formRegister = document.getElementById("formRegister");
+    //if (formRegister) {
+    //    formRegister.addEventListener("submit", function (e) {
+    //        e.preventDefault();
+    //        const email = document.getElementById("email").value.trim();
+    //        const password = passwordInput.value;
+    //        const confirmPassword = confirmInput.value;
+    //        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    //        if (!emailRegex.test(email)) {
+    //            alert("Email không đúng định dạng!");
+    //            return;
+    //        }
+    //        const validPassword =
+    //            password.length >= 8 &&
+    //            /[A-Z]/.test(password) &&
+    //            /[a-z]/.test(password) &&
+    //            /[0-9]/.test(password) &&
+    //            /[^A-Za-z0-9]/.test(password);
+    //        if (!validPassword) {
+    //            alert("Mật khẩu chưa đáp ứng đủ điều kiện!");
+    //            return;
+    //        }
+    //        if (password !== confirmPassword) {
+    //            alert("Mật khẩu nhập lại không trùng khớp!");
+    //            return;
+    //        }
+    //        alert("Thông tin hợp lệ! Có thể tiến hành đăng ký.");
+    //    });
+    //}
+    //const formLogin = document.getElementById("formLogin");
+    //if (formLogin) {
+    //    formLogin.addEventListener("submit", function (e) {
+    //        e.preventDefault();
+    //        alert("Bạn cần kết nối chức năng đăng nhập với Controller!");
+    //    });
+    //}
 });
 // Form LienHe
 const contactForm = document.getElementById("contactForm");

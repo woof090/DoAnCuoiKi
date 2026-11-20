@@ -1,0 +1,110 @@
+﻿@model DuAnCuoiKy_Nhom08.Models.Project
+
+@{
+    ViewBag.Title = "Taomoi";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+
+<link href="~/Content/MyStyleSheet/StyleSheetPortfolio.css" rel="stylesheet" />
+<link href="~/Content/MyStyleSheet/LayoutStyleSheet.css" rel="stylesheet" />
+
+<section class="page-heading">
+    <span class="eyebrow">NEW PROJECT</span>
+    <h1>Thêm dự án mới</h1>
+    <p>Nhập thông tin dự án để hiển thị lên danh sách portfolio.</p>
+</section>
+
+<div class="about-card">
+    @using (Html.BeginForm("Taomoi", "Projects", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="edit-grid">
+            <div class="field-box">
+                <label class="field-label" for="Title">Tên dự án</label>
+                @Html.TextBoxFor(model => model.Title, new { @class = "input-custom", placeholder = "VD: Website Quản Lý Bán Hàng" })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="field-box">
+                <label class="field-label" for="CategoryID">Danh mục</label>
+                @if (ViewBag.CategoryID != null)
+                {
+                    @Html.DropDownList("CategoryID", null, "-- Chọn danh mục --", new { @class = "input-custom" })
+                }
+                else
+                {
+                    @Html.TextBoxFor(model => model.CategoryID, new { @class = "input-custom", type = "number", placeholder = "Nhập mã danh mục (CategoryID)" })
+                }
+                @Html.ValidationMessageFor(model => model.CategoryID, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="field-box field-full">
+                <label class="field-label" for="Description">Mô tả dự án</label>
+                @Html.TextAreaFor(model => model.Description, new { @class = "input-custom textarea-custom", placeholder = "Mô tả mục tiêu, chức năng và vai trò của bạn trong dự án..." })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="field-box">
+                <label class="field-label" for="Image">Đường dẫn hình ảnh</label>
+                @Html.TextBoxFor(model => model.Image, new { @class = "input-custom", placeholder = "VD: /Content/Images/project1.png" })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="field-box">
+                <label class="field-label" for="CreatedDate">Ngày tạo</label>
+                @Html.TextBoxFor(model => model.CreatedDate, "{0:yyyy-MM-dd}", new { @class = "input-custom", type = "date" })
+                @Html.ValidationMessageFor(model => model.CreatedDate, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="field-box">
+                <label class="field-label" for="ProjectURL">Link Demo / Website</label>
+                @Html.TextBoxFor(model => model.ProjectURL, new { @class = "input-custom", placeholder = "https://..." })
+                @Html.ValidationMessageFor(model => model.ProjectURL, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="field-box">
+                <label class="field-label" for="GithubURL">Link GitHub</label>
+                @Html.TextBoxFor(model => model.GithubURL, new { @class = "input-custom", placeholder = "https://github.com/..." })
+                @Html.ValidationMessageFor(model => model.GithubURL, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="field-box">
+                <label class="field-label" for="DisplayOrder">Thứ tự hiển thị</label>
+                @Html.TextBoxFor(model => model.DisplayOrder, new { @class = "input-custom", type = "number", placeholder = "VD: 1" })
+                @Html.ValidationMessageFor(model => model.DisplayOrder, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="field-box">
+                <label class="field-label">Trạng thái</label>
+                <div class="status-inline">
+                    @Html.CheckBox("Status", Model != null && Model.Status == true)
+                    <span>Hiển thị dự án</span>
+                </div>
+                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            </div>
+
+            @if (ViewBag.AllTags != null)
+            {
+                <div class="field-box field-full">
+                    <label class="field-label">Công nghệ / Tags</label>
+                    <div class="tag-checkbox-group">
+                        @foreach (var tag in (IEnumerable<dynamic>)ViewBag.AllTags)
+                        {
+                            <label class="tag-checkbox-item">
+                                <input type="checkbox" name="selectedTags" value="@tag.TagID" />
+                                <span>@tag.TagName</span>
+                            </label>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn-save">Lưu dự án</button>
+            <a href="@Url.Action("Xemproject")" class="btn-back">← Quay lại danh sách</a>
+        </div>
+    }
+</div>

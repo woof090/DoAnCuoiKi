@@ -1,0 +1,79 @@
+﻿
+@{
+    ViewBag.Title = "Dangky";
+    Layout = "~/Views/Shared/_LayoutTrangChu.cshtml";
+}
+
+<link href="~/Content/MyStyleSheet/LayoutStyleSheet.css?v=7" rel="stylesheet" />
+<div class="login-container">
+    <div class="login-box">
+        <img src="~/Images/Logo/Login_01.jpg" alt="Logo" class="login-logo">
+        <div class="login-title">
+            <h1>Đăng ký tài khoản</h1>
+            <p>Tạo tài khoản mới của bạn</p>
+        </div>
+        <form id="formRegister" action="@Url.Action("Dangky", "Admin")" method="post">
+            <div class="form-group">
+                <input type="text"
+                       name="Hoten"
+                       placeholder="Họ và tên"
+                       maxlength="100"
+                       required>
+            </div>
+            <div class="form-group">
+                <input type="text"
+                       name="Username"
+                       placeholder="Tên đăng nhập"
+                       minlength="4"
+                       maxlength="20"
+                       required>
+            </div>
+            <div class="form-group">
+                <input type="email"
+                       id="email"
+                       name="Email"
+                       placeholder="Email"
+                       maxlength="254"
+                       required>
+            </div>
+            <div class="form-group">
+                <input type="password"
+                       id="passwordhash"
+                       name="PasswordHash"
+                       placeholder="Mật khẩu"
+                       minlength="8"
+                       required>
+            </div>
+            <!-- ĐIỀU KIỆN MẬT KHẨU -->
+            <div class="password-rules" id="passwordRules" style="display: none;">
+                <p id="length">✗ Tối thiểu 8 ký tự</p>
+                <p id="uppercase">✗ Ít nhất 1 chữ in hoa (A-Z)</p>
+                <p id="lowercase">✗ Ít nhất 1 chữ thường (a-z)</p>
+                <p id="number">✗ Ít nhất 1 chữ số (0-9)</p>
+                <p id="special">✗ Ít nhất 1 ký tự đặc biệt (!#$...)</p>
+            </div>
+            <div class="form-group">
+                <input type="password"
+                       id="confirmPassword"
+                       name="confirmPassword"
+                       placeholder="Nhập lại mật khẩu"
+                       required>
+            </div>
+            <p id="passwordMessage"></p>
+            <button type="submit">
+                Đăng ký ⇥
+            </button>
+        </form>
+            <p class="register-link">
+                Đã có tài khoản?
+                <a href="@Url.Action("Dangnhap","Admin")">
+                    Đăng nhập
+                </a>
+            </p>
+    </div>
+        <!-- QUAY LẠI TRANG CHỦ -->
+        <a href="@Url.Action("Index", "PersonalPortfolio")" class="home-link">
+            ← Quay lại trang chủ
+        </a>
+    </div>
+</div>

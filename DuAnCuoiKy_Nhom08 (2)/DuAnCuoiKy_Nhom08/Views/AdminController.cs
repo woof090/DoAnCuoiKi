@@ -87,5 +87,14 @@ namespace DuAnCuoiKy_Nhom08.Views
             }
             return View();
         }
+        public ActionResult Dangxuat()
+        { 
+            Session.Clear();
+
+            // 2. Hủy bỏ phiên làm việc (Session ID) hiện tại
+            Session.Abandon();
+
+            return RedirectToAction("Dangnhap", "Admin");
+        }
     }
 }
